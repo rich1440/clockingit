@@ -17,16 +17,9 @@ class OutputCompressionFilter
 
   def self.filter(controller)
     return if COMPRESSION_DISABLED ||
-      controller.response.headers['Content-Encoding'] ||
+      controller.response.headers['Content-Encoding'] || 
       controller.request.env['HTTP_ACCEPT_ENCODING'].nil? ||
       controller.request.is_component_request?
-
-    content_type = controller.response.headers["Content-Type"] || 'text/html'
-    unless /^text\//.match(content_type)
-      return
-    end
-
-
     begin
       controller.request.env['HTTP_ACCEPT_ENCODING'].split(/\s*,\s*/).each do |encoding|
         # TODO: use "q" values to determine user agent encoding preferences
@@ -48,14 +41,14 @@ class OutputCompressionFilter
           else
             next # the encoding is not supported, try the next one
         end
-        controller.logger.info "Response body was encoded with #{encoding}"
+        controller.logger.info "Response body was encoded with #{encoding}" 
         controller.response.headers['Content-Encoding'] = encoding
         break    # the encoding is supported, stop
       end
     end
     controller.response.headers['Content-Length'] = controller.response.body.length
     if controller.response.headers['Vary'] != '*'
-      controller.response.headers['Vary'] =
+      controller.response.headers['Vary'] = 
         controller.response.headers['Vary'].to_s.split(',').push('Accept-Encoding').uniq.join(',')
     end
   end
@@ -65,7 +58,7 @@ end
 # Handle component requests by not compressing the output from a component
 module ActionController
   # These methods are available in both the production and test Request objects.
-  class AbstractRequest
+  class Request
     def is_component_request=(val)  #:nodoc:
       @is_component_request = val
     end

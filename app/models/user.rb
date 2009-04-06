@@ -4,8 +4,6 @@ class User < ActiveRecord::Base
   has_many :custom_attribute_values, :as => :attributable, :dependent => :destroy
   include CustomAttributeMethods
 
-  require_dependency 'digest/md5'
-
   belongs_to    :company
   belongs_to    :customer
   has_many      :projects, :through => :project_permissions, :conditions => ['projects.completed_at IS NULL'], :order => "projects.customer_id, projects.name"
