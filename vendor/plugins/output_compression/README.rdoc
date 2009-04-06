@@ -1,0 +1,10 @@
+This Version works for Rails >= 2.3.0, if you use a previous version, don't use this fork.
+
+Contributors:
+  Tom Fakes    - Initial simple implementation, plugin implementation
+  Dan Kubb     - Handle multiple encodings, correct response headers
+  Sebastian    - Handle component requests
+  ACTRAiSER	   - Minor adjustment to make it work with Rails 2.3.0
+
+in controller:
+  after_filter OutputCompressionFilter
