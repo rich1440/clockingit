@@ -116,7 +116,7 @@ class LoginController < ApplicationController
     session[:filter_customer] ||= "0"
     
     # Let others know User logged in
-    Juggernaut.send_data("do_execute(#{logged_in.id}, \"Element.update('flash_message', '#{logged_in.username} logged in..');Element.show('flash');new Effect.Highlight('flash_message',{duration:2.0});\");", ["info_#{logged_in.company_id}"])
+    Juggernaut.send("do_execute(#{logged_in.id}, \"Element.update('flash_message', '#{logged_in.username} logged in..');Element.show('flash');new Effect.Highlight('flash_message',{duration:2.0});\");", ["info_#{logged_in.company_id}"])
 
     chat_update = render_to_string :update do |page|
       page << "if($('presence-online')) {"
