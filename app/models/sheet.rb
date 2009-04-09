@@ -1,9 +1,9 @@
 # And active worksheet, linked to a task and a user
 
 class Sheet < ActiveRecord::Base
-  belongs_to :task
-  belongs_to :project
-  belongs_to :user
+  belongs_to :task, :class_name => '::Task'
+  belongs_to :project, :class_name => '::Project'
+  belongs_to :user, :class_name => '::User'
 
   def paused?
     self.paused_at != nil
