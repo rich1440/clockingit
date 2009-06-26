@@ -16,75 +16,91 @@ Localization.load
 
 
 Rails::Initializer.run do |config|
-  # Settings in config/environments/* take precedence over those specified here.
-  # Application configuration should go into files in config/initializers
-  # -- all .rb files in that directory are automatically loaded.
+	# Settings in config/environments/* take precedence over those specified here.
+	# Application configuration should go into files in config/initializers
+	# -- all .rb files in that directory are automatically loaded.
 
-  # Add additional load paths for your own custom dirs
-  # config.load_paths += %W( #{RAILS_ROOT}/extras )
+	# Add additional load paths for your own custom dirs
+	# config.load_paths += %W( #{RAILS_ROOT}/extras )
 
-  # Only load the plugins named here, in the order given (default is alphabetical).
-  # :all can be used as a placeholder for all plugins not explicitly named
-  # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
+	# Only load the plugins named here, in the order given (default is alphabetical).
+	# :all can be used as a placeholder for all plugins not explicitly named
+	# config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
-  # Skip frameworks you're not going to use. To use Rails without a database,
-  # you must remove the Active Record framework.
-  # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
+	# Skip frameworks you're not going to use. To use Rails without a database,
+	# you must remove the Active Record framework.
+	# config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
 
-  # Use the database for sessions instead of the file system
-  # (create the session table with 'rake create_sessions_table')
-  config.action_controller.session_store = :active_record_store
+	# Use the database for sessions instead of the file system
+	# (create the session table with 'rake create_sessions_table')
+	config.action_controller.session_store = :active_record_store
 
-  # Enable page/fragment caching by setting a file-based store
-  # (remember to create the caching directory and make it readable to the application)
-  config.action_controller.cache_store = :file_store, "#{RAILS_ROOT}/tmp/cache"
+	# Enable page/fragment caching by setting a file-based store
+	# (remember to create the caching directory and make it readable to the application)
+	config.action_controller.cache_store = :file_store, "#{RAILS_ROOT}/tmp/cache"
 
-  # Activate observers that should always be running
-  # config.active_record.observers = :cacher, :garbage_collector
+	# Activate observers that should always be running
+	# config.active_record.observers = :cacher, :garbage_collector
 
-  # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-  # Run "rake -D time" for a list of tasks for finding time zone names.
-  config.time_zone = 'UTC'
+	# Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
+	# Run "rake -D time" for a list of tasks for finding time zone names.
+	config.time_zone = 'UTC'
 
-  # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-  # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
-  # config.i18n.default_locale = :de
+	# The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+	# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+	# config.i18n.default_locale = :de
 
-  # Rotate logs when they reach 1Mb and keep 5 old logs
-  config.logger = Logger.new(config.log_path, 5, 1024*1024)
-  
-  config.gem 'rails', :version => '2.3.2'
-  config.gem 'actionpack', :version => '2.3.2'
-  config.gem 'actionmailer', :version => '2.3.2'
-  config.gem 'activerecord', :version => '2.3.2'
-  config.gem 'activeresource', :version => '2.3.2'
-  config.gem 'activesupport', :version => '2.3.2'
-  
-  config.gem 'splattael-activerecord_base_without_table', :lib => 'activerecord_base_without_table', :source => 'http://gems.github.com'
-        
-  config.gem 'mysql', :version => '2.7'
-  config.gem 'daemons', :version => '1.0.10'
-  config.gem 'eventmachine', :version => '0.12.6'
-  config.gem 'json', :version => '1.1.4'
-  config.gem 'mislav-will_paginate', :version => '2.3.8', :lib => 'will_paginate', :source => 'http://gems.github.com'
-  config.gem 'ferret', :version => '0.11.6'
-#  config.gem 'acts_as_ferret', :version => '0.4.3'  #installed as a plugin since the gem version breaks
-  config.gem 'fastercsv', :version => '1.4.0'
-  config.gem 'icalendar', :version => '1.1.0'
-  config.gem 'tzinfo'
-  config.gem 'RedCloth', :version => '4.1.9'
-  config.gem 'rmagick', :version => '2.9.1', :lib => 'RMagick'
-  config.gem 'ZenTest', :version => '4.0.0', :lib => 'zentest'
-  #config.gem 'hoe', :version => '1.12.1'
-  config.gem 'gchartrb', :version => '0.8', :lib => 'google_chart'
-  #config.gem 'echoe', :version => '3.1.1'
-  
-  # Juggernaut is installed as a plugin and heavily customised, therefore it cannot be listed here.
-  
-  # Required for development only
-  config.gem 'allison', :version => '2.0.3'
-  config.gem 'markaby', :version => '0.5'
+	# Rotate logs when they reach 1Mb and keep 5 old logs
+	config.logger = Logger.new(config.log_path, 5, 1024*1024)
+
+	config.gem 'rails', :version => '2.3.2'
+	config.gem 'actionpack', :version => '2.3.2'
+	config.gem 'actionmailer', :version => '2.3.2'
+	config.gem 'activerecord', :version => '2.3.2'
+	config.gem 'activeresource', :version => '2.3.2'
+	config.gem 'activesupport', :version => '2.3.2'
+
+
+	config.gem 'splattael-activerecord_base_without_table', :lib => 'activerecord_base_without_table', :source => 'http://gems.github.com'
+
+	if RUBY_PLATFORM =~ /java/
+		# config.gem 'jdbc-mysql', :version => '5.0.4'
+	else
+		config.gem 'mysql', :version => '2.7'
+	end
+	config.gem 'daemons', :version => '1.0.10'
+	config.gem 'eventmachine', :version => '0.12.6'
+
+	# TODO _rgs_ json is another that requires native extensions!!!!
+	# config.gem 'json', :version => '1.1.4'
+
+	config.gem 'mislav-will_paginate', :version => '2.3.8', :lib => 'will_paginate', :source => 'http://gems.github.com'
+	if RUBY_PLATFORM =~ /java/
+		# config.gem 'solr'
+	else
+		config.gem 'ferret', :version => '0.11.6'
+	end
+	#  config.gem 'acts_as_ferret', :version => '0.4.3'  #installed as a plugin since the gem version breaks
+	config.gem 'fastercsv', :version => '1.4.0'
+	config.gem 'icalendar', :version => '1.1.0'
+	config.gem 'tzinfo'
+	config.gem 'RedCloth', :version => '4.1.9'
+	if RUBY_PLATFORM =~ /java/
+		config.gem 'image_voodoo', :version => '0.6'
+	else
+		config.gem 'rmagick', :version => '2.9.1', :lib => 'RMagick'
+	end
+	# TODO _rgs_ removed for now  config.gem 'ZenTest', :version => '4.0.0', :lib => 'zentest'
+	#config.gem 'hoe', :version => '1.12.1'
+	config.gem 'gchartrb', :version => '0.8', :lib => 'google_chart'
+	#config.gem 'echoe', :version => '3.1.1'
+
+	# Juggernaut is installed as a plugin and heavily customised, therefore it cannot be listed here.
+
+	# Required for development only
+	config.gem 'allison', :version => '2.0.3'
+	config.gem 'markaby', :version => '0.5'
 end
 
 ActionController::Base.session_options[:session_expires]= Time.local(2015,"jan")

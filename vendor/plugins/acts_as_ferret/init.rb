@@ -18,7 +18,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-require 'acts_as_ferret'
+if !RUBY_PLATFORM =~ /java/
+	require 'acts_as_ferret'
 
-config.after_initialize { ActsAsFerret::load_config }
-config.to_prepare       { ActsAsFerret::load_config }
+	config.after_initialize { ActsAsFerret::load_config }
+	config.to_prepare       { ActsAsFerret::load_config }
+end

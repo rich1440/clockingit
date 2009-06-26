@@ -8,7 +8,11 @@ class WikiPage < ActiveRecord::Base
 
   has_many   :event_logs, :as => :target, :dependent => :destroy, :order => 'id DESC'
 
+	if RUBY_PLATFORM =~ /java/
+  acts_as_solr 
+  else
   acts_as_ferret :fields => ['company_id', 'project_id', 'name', 'body']
+  end
 
   LOCKING_PERIOD = 30.minutes
 

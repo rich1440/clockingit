@@ -9,7 +9,19 @@
 class Task < ActiveRecord::Base
 
   include Misc
-
+  if RUBY_PLATFORM =~ /java/
+	   acts_as_solr :include => [:project, :company, :milestone]
+=begin
+  acts_as_solr( { :fields => { 'company_id' => {},
+                      'project_id' => {},
+                      'name' => { :boost => 2.0 },
+                      'description' => { :boost => 1.7},
+                      'requested_by' => { :boost => 0.7 }
+                    },
+                    :remote => true
+                  } )
+=end
+	  else
   acts_as_ferret( { :fields => { 'company_id' => {},
                       'project_id' => {},
                       'full_name' => { :boost => 1.5 },
@@ -20,6 +32,7 @@ class Task < ActiveRecord::Base
                     },
                     :remote => true
                   } )
+	  end
 
   belongs_to    :company
   belongs_to    :project
@@ -583,7 +596,9 @@ class Task < ActiveRecord::Base
     default_options = {:limit => 20, :page => 1}
     options = default_options.merge options
     options[:offset] = options[:limit] * (options.delete(:page).to_i-1)
-    results = Task.find_with_ferret(q, options)
+    is_jruby = RUBY_PLATFORM =~ /java/
+    results = Task.find_with_ferret(q, options) if !is_jruby
+    results = Task.find_with_solr(q, options) if is_jruby
     return [results.total_hits, results]
   end
 

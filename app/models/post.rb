@@ -6,7 +6,11 @@ class Post < ActiveRecord::Base
   belongs_to :topic, :counter_cache => true
   has_one    :event_log, :as => :target, :dependent => :destroy
 
+	if RUBY_PLATFORM =~ /java/
+  acts_as_solr 
+        else
   acts_as_ferret :fields => ['company_id', 'project_id', 'body', 'forum_id']
+  end
 
   format_attribute :body
 
