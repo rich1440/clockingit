@@ -1,0 +1,17 @@
+development:
+  adapter: jdbcmysql
+  database: citjruby_dev
+  host: localhost
+  username: citjruby_dev
+  password: citjruby_dev
+  encoding: utf8
+  # JRuby doesn't support socket:
+  #socket: /tmp/mysql.sock
+
+production:
+  adapter: jdbcmysql
+  database: citjruby_prod
+  host: localhost
+  username: citjruby_prod
+  password: citjruby_prod
+  encoding: utf8
